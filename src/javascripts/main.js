@@ -5,6 +5,13 @@ import "bootstrap"
 const xMid = 400;
 const yMid = 300;
 
+function star(ctx, x, y){
+    ctx.fillStyle = 'white'
+    ctx.beginPath();
+    ctx.arc(x, y, 3,0, 2*Math.PI)
+    ctx.fill();
+}
+
 function ufoDots(ctx, xMid, yMid, x, xmove) {
     ctx.fillStyle = 'black';
     ctx.beginPath();
@@ -13,6 +20,14 @@ function ufoDots(ctx, xMid, yMid, x, xmove) {
 }
 
 function ufo(ctx, xmove, beam) {
+
+    for(let i = 0; i < 40; i++){
+        let xrand = Math.floor(Math.random() * 800)
+        let yrand = Math.floor(Math.random() * 600)
+        star(ctx, xrand, yrand);
+    }
+
+
     ctx.fillStyle = 'grey';
     ctx.beginPath();
     ctx.moveTo(300 + xmove, yMid);
@@ -21,7 +36,10 @@ function ufo(ctx, xmove, beam) {
     ctx.quadraticCurveTo(500 + xmove, yMid - 30, 500 + xmove, yMid);
     ctx.fill();
 
-    ctx.fillStyle = 'yellow';
+    if(beam == 300)
+        ctx.fillStyle = 'red';
+    else
+        ctx.fillStyle = 'yellow';
     ctx.beginPath();
     ctx.moveTo(380 + xmove, yMid);
     ctx.lineTo(420 + xmove, yMid);
@@ -55,6 +73,8 @@ function render() {
         document.write("There was an error with your canvas");
     }
 }
+
+
 
 document.body.onload = render;
 document.getElementById('x').oninput = render;
